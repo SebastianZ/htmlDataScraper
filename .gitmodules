@@ -1,0 +1,3 @@
+[submodule "PHPDump"]
+	path = PHPDump
+	url = https://github.com/SebastianZ/PHPDump.git
