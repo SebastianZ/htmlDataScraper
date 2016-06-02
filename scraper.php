@@ -13,8 +13,8 @@
 
   class htmlElement {
     public $categories = [];
-    public $content = "";
-    public $tagOmission = "";
+    public $content = [];
+    public $tagOmission = '';
     public $attributes = [];
     public $interfaces = [];
   }
@@ -179,7 +179,13 @@
           }, $categories);
           $htmlData->elements[$element]->categories = $categories;
         }
-      }
+
+        // Parse permitted content
+        if (preg_match('/(?:' . $locales['en-US']['permittedContent'] . '|' .
+          $localeItems['permittedContent'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->content[$locale] = $contentMatches[1];
+          }
+        }
     }
   }
 
