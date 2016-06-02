@@ -45,7 +45,8 @@
   $locales = [
     'en-US' => [
       'permittedContent' => 'Permitted content',
-      'tagOmission' => 'Tag omission'
+      'tagOmission' => 'Tag omission',
+      'domInterface' => 'DOM interface'
     ]/*,
     'ar' => [
     ],
@@ -191,6 +192,12 @@
         if (preg_match('/(?:' . $locales['en-US']['tagOmission'] . '|' .
           $localeItems['tagOmission'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
             $htmlData->elements[$element]->tagOmission[$locale] = $contentMatches[1];
+        }
+
+        // Parse DOM interface
+        if (preg_match('/(?:' . $locales['en-US']['domInterface'] . '|' .
+          $localeItems['domInterface'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->domInterface[$locale] = preg_replace('/<.+?(\s+\S+=".*?")*>/', '', $contentMatches[1]);
         }
       }
     }
