@@ -164,6 +164,22 @@
       if (isset($_GET['refresh']) || !file_exists($filePath)) {
         file_put_contents($filePath, $response);
       }
+
+      if (preg_match('/<table class="(?:standard-table|properties)">(?:.+?)<\/table>/s', $response, $infoTableMatches)) {
+      	// Parse categories
+        if ($locale === 'en-US' && preg_match('/categories.+?<td>(.+?)<\/td>/is', $infoTableMatches[0], $categoriesMatches)) {
+          $categories = explode(', ', $categoriesMatches[1]);
+          $categories = array_map(function($category) {
+            $category = preg_replace('/<.+?>/', '', $category);
+            $words = explode(' ', $category);
+            foreach ($words as $index => $word) {
+              $words[$index] = ($index === 0) ? lcfirst($word) : ucfirst($word);
+            }
+            return str_replace('.', '', implode('', $words));
+          }, $categories);
+          $htmlData->elements[$element]->categories = $categories;
+        }
+      }
     }
   }
 
