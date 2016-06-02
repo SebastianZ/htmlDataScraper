@@ -14,7 +14,7 @@
   class htmlElement {
     public $categories = [];
     public $content = [];
-    public $tagOmission = '';
+    public $tagOmission = [];
     public $attributes = [];
     public $interfaces = [];
   }
@@ -44,7 +44,8 @@
 
   $locales = [
     'en-US' => [
-      'permittedContent' => 'Permitted content'
+      'permittedContent' => 'Permitted content',
+      'tagOmission' => 'Tag omission'
     ]/*,
     'ar' => [
     ],
@@ -184,8 +185,14 @@
         if (preg_match('/(?:' . $locales['en-US']['permittedContent'] . '|' .
           $localeItems['permittedContent'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
             $htmlData->elements[$element]->content[$locale] = $contentMatches[1];
-          }
         }
+
+        // Parse tag omission
+        if (preg_match('/(?:' . $locales['en-US']['tagOmission'] . '|' .
+          $localeItems['tagOmission'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->tagOmission[$locale] = $contentMatches[1];
+        }
+      }
     }
   }
 
