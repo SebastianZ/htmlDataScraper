@@ -46,6 +46,7 @@
     'en-US' => [
       'permittedContent' => 'Permitted content',
       'tagOmission' => 'Tag omission',
+      'permittedParents' => 'Permitted parent elements',
       'domInterface' => 'DOM interface'
     ]/*,
     'ar' => [
@@ -192,6 +193,12 @@
         if (preg_match('/(?:' . $locales['en-US']['tagOmission'] . '|' .
           $localeItems['tagOmission'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
             $htmlData->elements[$element]->tagOmission[$locale] = $contentMatches[1];
+        }
+
+        // Parse permitted parent elements
+        if (preg_match('/(?:' . $locales['en-US']['permittedParents'] . '|' .
+          $localeItems['permittedParents'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->permittedParents[$locale] = $contentMatches[1];
         }
 
         // Parse DOM interface
