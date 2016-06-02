@@ -44,6 +44,7 @@
 
   $locales = [
     'en-US' => [
+      'contentCategories' => 'Content categories',
       'permittedContent' => 'Permitted content',
       'tagOmission' => 'Tag omission',
       'permittedParents' => 'Permitted parent elements',
@@ -55,20 +56,34 @@
       'permittedContent' => 'Permitted content'
     ],
     'ca' => [
-    ],
+    ]*/,
     'cs' => [
-    ],
+      'contentCategories' => 'Content categories',
+      'permittedContent' => 'Permitted content',
+      'tagOmission' => 'Tag omission',
+      'permittedParents' => 'Permitted parent elements',
+      'domInterface' => 'DOM interface'
+    ]/*,
     'de' => [
       'permittedContent' => 'Erlaubter Inhalt'
     ],
     'es' => [
       'permittedContent' => 'Contenido permitido'
-    ],
+    ]*/,
     'fa' => [
+      'contentCategories' => 'Content categories',
+      'permittedContent' => 'Permitted content',
+      'tagOmission' => 'Tag omission',
+      'permittedParents' => 'Permitted parent elements',
+      'domInterface' => 'DOM interface'
     ],
     'fr' => [
-      'permittedContent' => 'Contenu autorisé|Contenu authorisé|Contenu permis|Contenu permit|Contenu'
-    ],
+      'contentCategories' => 'Catégories de contenu',
+      'permittedContent' => 'Contenu autorisé',
+      'tagOmission' => 'Omission de balises',
+      'permittedParents' => 'Éléments parents autorisés',
+      'domInterface' => 'Interface DOM'
+    ]/*,
     'he' => [
     ],
     'hu' => [
@@ -98,9 +113,9 @@
     ],
     'ru' => [
       'permittedContent' => 'Permitted content'
-    ],
+    ]*/,
     'tr' => [
-    ],
+    ]/*,
     'uk' => [
     ],
     'vi' => [
@@ -170,7 +185,8 @@
 
       if (preg_match('/<table class="(?:standard-table|properties)">(?:.+?)<\/table>/s', $response, $infoTableMatches)) {
       	// Parse categories
-        if ($locale === 'en-US' && preg_match('/categories.+?<td>(.+?)<\/td>/is', $infoTableMatches[0], $categoriesMatches)) {
+        if ($locale === 'en-US' && preg_match('/(?:' . $locales['en-US']['contentCategories'] . '|' .
+            $localeItems['contentCategories'] . ').+?<td>(.+?)<\/td>/is', $infoTableMatches[0], $categoriesMatches)) {
           $categories = explode(', ', $categoriesMatches[1]);
           $categories = array_map(function($category) {
             $category = preg_replace('/<.+?>/', '', $category);
