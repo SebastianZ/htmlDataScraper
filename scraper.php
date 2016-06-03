@@ -146,7 +146,6 @@
       file_put_contents($filePath, $response);
     }
 
-    //if (preg_match('/<table class="index.*?">.+?<\/div>/s', $response, $indexMatch)) {
     preg_match_all('/<table class="standard-table">.+?<\/table>/s', $response, $categoryMatches);
 
     $elementURLPaths = [];
@@ -183,10 +182,11 @@
         file_put_contents($filePath, $response);
       }
 
-      if (preg_match('/<table class="(?:standard-table|properties)">(?:.+?)<\/table>/s', $response, $infoTableMatches)) {
+      if (preg_match('/<table class="(?:standard-table|properties)">.+?<\/table>|<ul class="htmlelt">.+?<\/ul>/s', $response, $infoTableMatches)) {
       	// Parse categories
         if ($locale === 'en-US' && preg_match('/(?:' . $locales['en-US']['contentCategories'] . '|' .
-            $localeItems['contentCategories'] . ').+?<td>(.+?)<\/td>/is', $infoTableMatches[0], $categoriesMatches)) {
+            $localeItems['contentCategories'] . ').+?<td>(.+?)<\/td>|(?:' . $locales['en-US']['contentCategories'] . '|' .
+            $localeItems['contentCategories'] . ').+?<\/dfn>(.+?)<\/li>/is', $infoTableMatches[0], $categoriesMatches)) {
           $categories = explode(', ', $categoriesMatches[1]);
           $categories = array_map(function($category) {
             $category = preg_replace('/<.+?>/', '', $category);
@@ -201,26 +201,27 @@
 
         // Parse permitted content
         if (preg_match('/(?:' . $locales['en-US']['permittedContent'] . '|' .
-          $localeItems['permittedContent'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
-            $htmlData->elements[$element]->content[$locale] = $contentMatches[1];
+          $localeItems['permittedContent'] . ').+?(?:<td>(.+?)<\/td>|<\/dfn>(.+?)<\/li>)/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->content[$locale] = $contentMatches[1] !== '' ? $contentMatches[1] : $contentMatches[2];
         }
 
         // Parse tag omission
         if (preg_match('/(?:' . $locales['en-US']['tagOmission'] . '|' .
-          $localeItems['tagOmission'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
-            $htmlData->elements[$element]->tagOmission[$locale] = $contentMatches[1];
+          $localeItems['tagOmission'] . ').+?(?:<td>(.+?)<\/td>|<\/dfn>(.+?)<\/li>)/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->tagOmission[$locale] = $contentMatches[1] !== '' ? $contentMatches[1] : $contentMatches[2];
         }
 
         // Parse permitted parent elements
         if (preg_match('/(?:' . $locales['en-US']['permittedParents'] . '|' .
-          $localeItems['permittedParents'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
-            $htmlData->elements[$element]->permittedParents[$locale] = $contentMatches[1];
+          $localeItems['permittedParents'] . ').+?(?:<td>(.+?)<\/td>|<\/dfn>(.+?)<\/li>)/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->permittedParents[$locale] = $contentMatches[1] !== '' ? $contentMatches[1] : $contentMatches[2];
         }
 
         // Parse DOM interface
         if (preg_match('/(?:' . $locales['en-US']['domInterface'] . '|' .
-          $localeItems['domInterface'] . ').+?<td>(.+?)<\/td>/su', $infoTableMatches[0], $contentMatches)) {
-            $htmlData->elements[$element]->domInterface[$locale] = preg_replace('/<.+?(\s+\S+=".*?")*>/', '', $contentMatches[1]);
+          $localeItems['domInterface'] . ').+?(?:<td>(.+?)<\/td>|<\/dfn>(.+?)<\/li>)/su', $infoTableMatches[0], $contentMatches)) {
+            $htmlData->elements[$element]->domInterface[$locale] = preg_replace('/<.+?(\s+\S+=".*?")*>/', '',
+                $contentMatches[1] !== '' ? $contentMatches[1] : $contentMatches[2]);
         }
       }
     }
