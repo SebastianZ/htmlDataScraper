@@ -54,9 +54,14 @@
     ],
     'bn-BD' => [
       'permittedContent' => 'Permitted content'
-    ],
-    'ca' => [
     ]*/,
+    'ca' => [
+      'contentCategories' => 'Content Categories de contingut',
+      'permittedContent' => 'Contingut permès',
+      'tagOmission' => 'Omissió de l\'etiqueta',
+      'permittedParents' => 'Elements pares permesos',
+      'domInterface' => 'Interfície DOM'
+    ],
     'cs' => [
       'contentCategories' => 'Content categories',
       'permittedContent' => 'Permitted content',
@@ -66,10 +71,14 @@
     ]/*,
     'de' => [
       'permittedContent' => 'Erlaubter Inhalt'
-    ],
-    'es' => [
-      'permittedContent' => 'Contenido permitido'
     ]*/,
+    'es' => [
+      'contentCategories' => 'Content categories',
+      'permittedContent' => 'Contenido permitido',
+      'tagOmission' => 'Omisión de la etiqueta',
+      'permittedParents' => 'Elementos padres permitidos',
+      'domInterface' => 'Interfaz DOM'
+    ],
     'fa' => [
       'contentCategories' => 'Content categories',
       'permittedContent' => 'Permitted content',
@@ -91,13 +100,21 @@
     'id' => [
     ],
     'it' => [
-    ],
+    ]*/,
     'ja' => [
-      'permittedContent' => '許可された内容|利用可能な中身'
+      'contentCategories' => 'コンテンツカテゴリ',
+      'permittedContent' => '許可された内容|利用可能な中身',
+      'tagOmission' => 'タグの省略',
+      'permittedParents' => '許可された親要素',
+      'domInterface' => 'DOM インターフェイス'
     ],
     'ko' => [
-      'permittedContent' => 'Permitted content'
-    ],
+      'contentCategories' => '컨텐트 카테고리',
+      'permittedContent' => '허용된 컨텐트',
+      'tagOmission' => '태그 생략',
+      'permittedParents' => '허용된 부모 요소들',
+      'domInterface' => 'DOM 인터페이스'
+    ]/*,
     'ms' => [
     ],
     'nl' => [
@@ -110,19 +127,27 @@
     'pt-PT' => [
     ],
     'ro' => [
-    ],
-    'ru' => [
-      'permittedContent' => 'Permitted content'
     ]*/,
+    'ru' => [
+      'contentCategories' => 'Категории контента',
+      'permittedContent' => 'Допустимое содержимое',
+      'tagOmission' => 'Пропуск тегов',
+      'permittedParents' => 'Допустимые родительские элементы',
+      'domInterface' => 'Интерфейс DOM'
+    ],
     'tr' => [
-    ]/*,
+    ],
     'uk' => [
     ],
     'vi' => [
     ],
     'zh-CN' => [
-      'permittedContent' => '允许的内容物|允许的内容|允许的子元素|允许内容'
-    ],
+      'contentCategories' => '内容类别',
+      'permittedContent' => '允许内容',
+      'tagOmission' => '标记省略',
+      'permittedParents' => '允许的父元素',
+      'domInterface' => 'DOM 接口'
+    ]/*,
     'zh-TW' => [
     ]*/
   ];
