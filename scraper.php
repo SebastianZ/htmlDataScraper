@@ -35,7 +35,7 @@
 
     // Append 'Attributes'
     $formattedName .= 'Attributes';
-     
+
     return $formattedName;
   }
 
@@ -203,7 +203,7 @@
     'zh-TW' => [
     ]*/
   ];
-  $elementReferenceURL = 'https://developer.mozilla.org/%s/docs/Web/HTML/Element/';
+  $elementReferenceURL = 'https://developer.mozilla.org/%s/docs/Web/HTML/Element';
   $outputFolder = 'output';
 
   if (!file_exists($outputFolder)) {
@@ -242,12 +242,12 @@
     }
 
     // Fetch each element page and parse it
-    foreach ($elementURLPaths as $urlPaths) {
-      preg_match('/.*\/(.+)$/', $urlPaths, $pageMatch);
+    foreach ($elementURLPaths as $urlPath) {
+      preg_match('/.*\/(.+)$/', $urlPath, $pageMatch);
       $element = $pageMatch[1];
       $filePath = $outputFolder . '/' . $element . '.' . $locale . '.html';
       if (isset($_GET['refresh']) || !file_exists($filePath)) {
-        $fetchLocation = 'https://developer.mozilla.org' . $urlPaths;
+        $fetchLocation = 'https://developer.mozilla.org' . $urlPath . '?raw';
       } else {
         $fetchLocation = $filePath;
       }
