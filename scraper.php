@@ -3,7 +3,7 @@
     require_once 'PHPDump/src/debug.php';
   }
 
-  set_time_limit(900);
+  set_time_limit(1800);
 
   $jsonFileName = 'htmlData.json';
 
